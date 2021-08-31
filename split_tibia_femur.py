@@ -149,18 +149,10 @@ if __name__ == "__main__":
             except Exception as err:
                 print(err)
                 failed.append(folder)
-<<<<<<< HEAD
                 logging.exception('Cropping for {} failed.'.format(ID))
-=======
-                logging.info('Cropping for {} failed.'.format(ID))
->>>>>>> origin/master
                 pass
 
     print(failed)
     time2 = time.time()
-<<<<<<< HEAD
     logging.info("Total time used: {: >8.1f} seconds".format(time2-time1))
     logging.info("Average time used: {: >8.1f} seconds".format((time2-time1)/count)) 
-=======
-    logging.info("Average time used: {: >8.1f} seconds".format((time2-time1)/count)) 
->>>>>>> origin/master
