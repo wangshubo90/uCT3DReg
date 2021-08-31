@@ -11,11 +11,19 @@ from shubow_tools import imreadseq_multithread,imsaveseq, auto_crop, down_scale,
 import shutil
 import numpy as np
 
+<<<<<<< HEAD
 wkdir = r"C:\Users\murtaza\Desktop\07.31.21_Obese\Shubo-Tiankuo\shubo tibia femur split\Week 1"
 os.chdir(wkdir)
 masterdir = r"C:\Users\murtaza\Desktop\07.31.21_Obese\Shubo-Tiankuo\shubo tibia femur split\Week 1"
 masteroutput = r"C:\Users\murtaza\Desktop\07.31.21_Obese\Shubo-Tiankuo\junction registration\week 1 registration" 
 refdir = r"C:\Users\murtaza\Desktop\07.31.21_Obese\Shubo-Tiankuo\tibia-fibula-junction-ref"
+=======
+wkdir = r"E:\Yoda1-tumor-loading 2.26.2021\Tibia & femur week 3"
+os.chdir(wkdir)
+masterdir = r"E:\Yoda1-tumor-loading 2.26.2021\Tibia & femur week 3"
+masteroutput = r"E:\Yoda1-tumor-loading 2.26.2021\Registration week 3" 
+refdir = r"E:\Yoda1-tumor-loading 2.26.2021\Registration week 0"
+>>>>>>> origin/master
 
 BASELINE_REGISTRATION = True
 
@@ -26,9 +34,15 @@ format = "%(asctime)s: %(message)s"
 logging.basicConfig(format = format, level = logging.INFO,
                     datefmt="%H:%M:%S")
 
+<<<<<<< HEAD
 if BASELINE_REGISTRATION:
     logging.info('Loading reference image...')
     ref_img = imreadseq_multithread(refdir,thread = 2, sitkimg=True, z_range=[None,None])
+=======
+if not BASELINE_REGISTRATION:
+    logging.info('Loading reference image...')
+    ref_img = imreadseq_multithread(refdir,thread = 2, sitkimg=True, z_range=[-355,-5])
+>>>>>>> origin/master
 #ref_img = down_scale(ref_img, down_scale_factor=1.0)
 
 failed_list = []
@@ -39,11 +53,19 @@ failed_list = []
 retry_list = [i[:-3] for i in retry_file]
 read_range_list = [i[-2] for i in retry_file]'''
 
+<<<<<<< HEAD
 for file in sorted(os.listdir(masterdir))[2:]:
     if re.search(r"\d{3}.(week.\d) (left|right) tibia", file):
         imgtitle = file
         
         if not BASELINE_REGISTRATION:
+=======
+for file in sorted(os.listdir(masterdir)):
+    if re.search(r"\d{3}.(week.\d) (left|right) tibia", file):
+        imgtitle = file
+        
+        if BASELINE_REGISTRATION:
+>>>>>>> origin/master
             logging.info('Loading reference image : {}'.format(re.sub(r"week [1-5]", "week 0",file)+' registered'))
             ref_img = imreadseq_multithread(os.path.join(refdir, re.sub(r"week [1-5]", "week 0",file)+' registered')\
                 ,thread = 2, sitkimg=True, rmbckgrd=75)
@@ -58,8 +80,13 @@ for file in sorted(os.listdir(masterdir))[2:]:
             lower = -600
             upper = -120'''
         
+<<<<<<< HEAD
         lower = 50 
         upper = 550
+=======
+        lower = -560 
+        upper = -1
+>>>>>>> origin/master
 
         if '__right__' in file:
             tar_img = imreadseq_multithread(os.path.join(masterdir,file), thread=2,

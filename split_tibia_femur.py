@@ -13,7 +13,7 @@ import cv2
 import shutil
 import glob
 
-def knee_join_z_index(limb, min=1400, max=2300, threshold=120):
+def knee_joint_z_index(limb, min=1400, max=2300, threshold=120):
     '''
     Desription:
         Given a 3D image of one limb, find the z_index to split tibia and femur
@@ -93,7 +93,7 @@ def splitLRTF(folder,imgtitle,outfd = None):
     del img
 
     ##### Save left tibia and femur #####
-    z_index_splt_left=knee_join_z_index(left)
+    z_index_splt_left=knee_joint_z_index(left)
     left_tibia = sitk.GetImageFromArray(auto_crop(left[:z_index_splt_left]))
     left_femur = sitk.GetImageFromArray(auto_crop(left[z_index_splt_left:]))
     del left
@@ -107,7 +107,7 @@ def splitLRTF(folder,imgtitle,outfd = None):
     
     ##### Save right tibia and femur #####
     logging.info("Processing...split RT & RF")
-    z_index_splt_right=knee_join_z_index(right)
+    z_index_splt_right=knee_joint_z_index(right)
     right_tibia = sitk.GetImageFromArray(auto_crop(right[:z_index_splt_right]))
     right_femur = sitk.GetImageFromArray(auto_crop(right[z_index_splt_right:]))
     del right
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     failed = []
 
     #for inputfd in glob.glob(os.path.join(masterfolder,"*reconstruction")):
-    for folder in sorted(os.listdir(masterfolder))[4:5]:
+    for folder in sorted(os.listdir(masterfolder))[:]:
         if folder[0:10]:
             count += 1
             ID = os.path.basename(folder)[0:10]
@@ -149,10 +149,18 @@ if __name__ == "__main__":
             except Exception as err:
                 print(err)
                 failed.append(folder)
+<<<<<<< HEAD
                 logging.exception('Cropping for {} failed.'.format(ID))
+=======
+                logging.info('Cropping for {} failed.'.format(ID))
+>>>>>>> origin/master
                 pass
 
     print(failed)
     time2 = time.time()
+<<<<<<< HEAD
     logging.info("Total time used: {: >8.1f} seconds".format(time2-time1))
     logging.info("Average time used: {: >8.1f} seconds".format((time2-time1)/count)) 
+=======
+    logging.info("Average time used: {: >8.1f} seconds".format((time2-time1)/count)) 
+>>>>>>> origin/master
